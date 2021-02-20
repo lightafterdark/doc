@@ -1,2 +1,7 @@
 * [mysql](learn/mysql)
 * [redis](learn/redis)
+* [面试](learn/view)
+* [面试php](interview/php)
+* [面试mysql](interview/mysql)
+* [面试redis](interview/redis)
+* [面试linux](interview/linux)
