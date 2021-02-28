@@ -1,30 +1,78 @@
 6.面向对象和面向过程
 面向过程以事件为中心自顶向下，程序按照功能划分为多个模块。
 面向对象
-封装
-继承
-多态 不同类的对象对同一消息做出响应
+封装 
+继承  单一继承 方法重写 默认子类重写父类方法 parent::
+多态 不同类的对象对同一消息做出响应 抽象类 abstact 接口 方法都是抽象
 抽象
-public protected  private
+
+public 内部外部子类
+protected  内部子类
+private 内部
+
 $this当前对象 self当前类 parent当前类的父类
 $this 在当前类中使用，用->调用属性和方法
 self也在当前类使用，用::调用
+面向对象能使其代码更加简洁易于维护并且具有更强的可重性
+封装性：封装性就是把对象的属性和行为结合成一个独立的单位。
+B类的对象拥有A类的全部属性与行为，称作B对A类的继承。
+重写的方法
+在子类中，使用parent访问父类中的被覆盖的属性和方法
+parent::__construct();
+parent::$name;
+parent::fun();
+
+多态性是指在父类中定义的属性或行为被子类继承之后，可以具有不同的数据类型或表现出不同的行为。
+这使得同一个属性或行为在父类及其各个子类中具有不同的语义。
+就是说同一种方法在子类与父类中执行的结果不同。
+
 2.魔术方法
 __construct()__ __call()__ __callstatic()__ __destruct()
 __clone()__ __set()__ __get()__ __toString()__ 
 __sleep()__ __wakeup()__ __isset()__ __unset__
+
+
 3.设计模式
-单例模式工厂模式 观察者模式 适配器模式 策略模式 门面模式
-4.php-fpm cgi
-cgi:web服务器和php解析器之间的通信
-fastcgi：一次处理多个请求不需要每次fork进程也不需要每次kill
-进程
-php-fpm master一个 接收web服务器请求 多个worker进程（嵌入php
-解析器）
+单例模式 工厂模式 观察者模式 适配器模式 策略模式 门面模式
+
+单例模式:
+一、三私一公：
+①、私有静态属性，又来储存生成的唯一对象
+②、私有构造函数
+③、私有克隆函数，防止克隆——clone
+④、公共静态方法，用来访问静态属性储存的对象，如果没有对象，则生成此单例
+二、关键词instanceof
+检查此变量是否为该类的对象、子类、或是实现接口。
+1、一个private的__construct是必须的，单例类不能在其它类中实例化，只能被自身实例化；
+2、拥有一个保存类的实例的静态成员变量;
+3、一个静态的公共方法用于实例化这个类，并访问这个类的实例;
+
+4.php运行原理
+php-fpm cgi fastcgi
+cgi:web服务器和php解析器之间的通信协议
+fastcgi：一次处理多个请求不需要每次fork进程也不需要每次kill进程，cgi改良版本
+php-fpm php fastcgi process manager fastcgi进程管理器
+master一个 监听端口，接收web服务器请求 多个worker进程（嵌入php
+解析器），处理php代码
 9000端口（tcp)unix socket(socket描述符)链接优化nginx反向代理
-
 5.session cookie
-
+cookie存储在客户端，不安全，存储字符串
+session存储在服务端，安全，存储对象，session可以存储文件，存储redis缓存，mem，
+mysql，session_save_handler
+负载均衡之后需要存储缓存实现多台服务器共用
+sessionid通过cookie传递，存储在cookie里面
+禁用cookie，1.可以通过url传递sessionid
+2.session_name,session_id函数传递或者SID常量
+unset取消引用，不会销毁空间 对象默认是引用传值 写时复制
+2.sql注入
+mysql_real_escape_string
+过滤特殊字符比如‘“NULL等，php开启magic_quotes_gpc或者addslashes
+获取的数值进行二次转换，比如interval  floatval
+所有需要进行数据库查询的变量都用‘包围
+3.xss攻击即跨站脚本攻击。攻击者在网站上发布包含攻击性代码的数据
+针对非法的html代码使用htmlspecialchars，strip_tags去除html和PHP标签
+4.csrf攻击跨站请求伪造。伪造请求，模仿用户提交表单行为。
+采用post请求增加用户攻击难度，对请求进行认证增加token
 6.ioc(控制反转)
 是一种设计思想，主要控制了外部资源获取(不只是对象包括比如文件等)
 并且容器帮我们查找以及注入依赖对象，对象只是被动的接受依赖对象，
@@ -38,15 +86,63 @@ php-fpm master一个 接收web服务器请求 多个worker进程（嵌入php
 系统带来更多功能，而是为了提升组件重用的频率，为系统搭建一个灵活
 可扩展的平台。
 
+6. fopen,r/r+ w/w+ a/a+,x/x+,b,t
+fwite fread fgetc fclose file_get_contents read_file 
+
+
+1.get和post区别：
+url可见性：get参数可见，post参数不可见
+数据传输上get通过url拼接post通过body体传输参数
+缓存性get可以缓存post不可以缓存
+get请求页面后退不影响post后退会重新提交表单
+get可以存储书签被浏览器缓存post不可以
+get传输数据比较小不超过2-4k，post根据phpini设置，也可以无限大
+post相对get较安全
+
+2.https是一种基于ssl/tls的http协议，所有的http数据都是在ssl/tls协议封装之上传输
+
+状态码
+200ok
+301     永久重定向
+302     临时重定向
+400 bad request
+401 未认证
+403 权限
+404 未找到
+405 方法错误
+500
+502
+504 超时
+
+
+11.tcp/ip四层模型
+链路曾网络层传输层应用层
+osi七层模型
+物理层 
+数据链路层 
+网络层
+传输层 tcpudp
+会话层 
+表示层  
+应用层 http
+
+12.http 和 https
+content type
+accpect
+origin
+cookie
+useragent
+refer
+
+13.
+get post head options put delete trace
 8.tcp和udp区别
 tcp提供的是面向连接，可靠的数据流传输，udp提供的是非面向
 连接的不可靠的数据流传输，tcp注重数据安全，udp数据传输快
 安全性一般。都是传输层协议
-
-
-tcp:https协议ftp协议smtp协议pop2协议
+tcp:https协议ftp协议smtp协议 25 pop3 10 协议 
+dns 53域名解析
 udp:网络语音电话广播通信
-
 9.tcp传输的数据一定可以收到吗
 tcp能够做到的是如果有可能就把数据递送到接受方，否则就通过放弃
 重传并中断连接这一手段通知用户，因此准确的说不是100%可靠
@@ -65,8 +161,6 @@ sequence number 为x 等待服务器确认
 保存，大量这种情况，会崩溃
 
 
-11.tcp/ip四层模型
-链路曾网络层传输层应用层
 
 12.tcp流量控制是什么
 让发送方的发送频率不要太快，要接受方来得及接受，避免数据丢失
@@ -102,21 +196,16 @@ pv
 uv
 带宽 pv/（3600*24）* 平均页面大小 * 8
 峰值流量 qps = pv * 80% / 6*3600 *20%
-
-
 高并发原则 
 拆分 功能 读写
 消息队列 服务结偶 异步处理 流量缓存/流量削峰
 redis队列
-
 优化方案 流量优化
 前段优化 cdn加速 减少http请求 添加异步请求 oss存储 浏览器缓存
 文件压缩
-
 服务端优化
 并发处理 go swoole 网络编程
 架构 同步+异步
-
 算法优化
 基于数据结构优化
 避免重复计算业务逻辑优化
@@ -135,7 +224,8 @@ nginx php mysql 高可用服务治理 负载均衡
 包含一个或者更多线程
 
 18.用户进程间通信方式
-管道 信号量 消息队列 信号 共享内存 套接字
+管道 信号量 消息队列 信号 共享内存 套接字`
+
 
 
 

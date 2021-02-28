@@ -1,9 +1,9 @@
 1.redis数据结构
-string 
-list
+string 动态字符串
+list 双向链表和压缩列表
 hash ziplist压缩列表和hashtable哈希表
-set
-sorted set
+set 数组 压缩列表
+sorted set 数组 哈希表
 bitmap
 geo
 streams
@@ -11,25 +11,18 @@ streams
 队列 先进先出 队列 lpush+rpop
 阻塞队列 lpush+brpop
 2.redis速度快数据类型丰富
-
 3.redis是单线程 运用队列技术将并发访问变成串行访问消除数据库
 串行控制的开销
-
 4.删除策略
 不删除 lru最近最少使用 lfu最不经常使用 先进先出
-
 5.持久化
 rdb
-用快照的方式记录redis的所有健值对，在某个时间点将数据写入
-一个临时文件
-aof
-所有的命令行记录以命令请求协议的格式保存为aof文件
-
+用快照的方式记录redis的所有健值对，在某个时间点将数据写入一个临时文件
+aof所有的命令行记录以命令请求协议的格式保存为aof文件
 rdb优点:rdb文件紧凑体积小网络传输快，适合全量复制，恢复速度比
 aof快很多，对性能影响较小，缺点 不能实时 所以会造成数据大量丢失，
 另外rdb文件要满足特定格式兼容性差
 aof优点支持秒级持久化兼容性好 缺点文件大恢复速度慢
-
 当aof和rdb同时存在时优先加载aof关闭aof加载rdb
 
 6.redis主从复制读写分离

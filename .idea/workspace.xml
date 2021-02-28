@@ -20,6 +20,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="18a871ac-cefb-4473-8e96-afb77485b5a5" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/interview/mysql.md" beforeDir="false" afterPath="$PROJECT_DIR$/interview/mysql.md" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/interview/php.md" beforeDir="false" afterPath="$PROJECT_DIR$/interview/php.md" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/interview/redis.md" beforeDir="false" afterPath="$PROJECT_DIR$/interview/redis.md" afterDir="false" />
@@ -88,9 +89,14 @@
     </option>
   </component>
   <component name="WindowStateProjectService">
-    <state x="561" y="251" width="670" height="676" key="search.everywhere.popup" timestamp="1614092892824">
-      <screen x="0" y="23" width="1792" height="1033" />
+    <state x="0" y="0" width="1792" height="1120" key="dock-window-1" timestamp="1614395089974">
+      <screen x="0" y="0" width="1792" height="1120" />
     </state>
+    <state x="0" y="0" width="1792" height="1120" key="dock-window-1/1792.0.1920.1080/0.0.1792.1120@1792.0.1920.1080" timestamp="1614395089974" />
+    <state x="2393" y="238" width="718" height="707" key="search.everywhere.popup" timestamp="1614387630373">
+      <screen x="1792" y="0" width="1920" height="1080" />
+    </state>
+    <state x="2393" y="238" width="718" height="707" key="search.everywhere.popup/1792.0.1920.1080/0.0.1792.1120@1792.0.1920.1080" timestamp="1614387630373" />
     <state x="561" y="251" width="670" height="676" key="search.everywhere.popup/1792.23.1920.1057/0.23.1792.1033@0.23.1792.1033" timestamp="1614092892824" />
   </component>
 </project>
